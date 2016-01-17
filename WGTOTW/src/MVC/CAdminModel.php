@@ -36,7 +36,7 @@ class CAdminModel implements \Anax\DI\IInjectionAware
         $values = array_values($values);
 
         $this->db->insert(
-            $this->getSource(),
+            $this->getSource('Admin'),
             $keys
         );
 
