@@ -36,25 +36,25 @@ class FirstPageController implements \Anax\DI\IInjectionAware
      */
     public function indexAction()
     {
-      $all = $this->users->findAll();
+      $all = $this->users->findMostActiveUser();
 
       $this->theme->setTitle("Visa mest aktiva användare");
-      $this->views->add('admin/list-all', [
+      $this->views->add('admin/list-all-first-page', [
           'users' => $all,
           'title' => "Visa mest aktiva användare",
       ]);
 
-      $all = $this->questions->findAll();
+      $all = $this->questions->findLatestQuestions();
       $this->theme->setTitle("Visa senaste frågorna");
-      $this->views->add('question/list-all', [
+      $this->views->add('question/list-all-first-page', [
           'users' => $all,
           'title' => "Visa senaste frågorna",
       ]);
 
-      $all = $this->tags->findAll();
+      $all = $this->tags->findPopulartags();
 
       $this->theme->setTitle("De mest populära taggarna");
-      $this->views->add('tag/list-all', [
+      $this->views->add('tag/list-all-first-page', [
           'users' => $all,
           'title' => "De mest populära taggarna",
       ]);

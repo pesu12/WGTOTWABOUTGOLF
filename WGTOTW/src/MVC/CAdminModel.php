@@ -93,6 +93,20 @@ class CAdminModel implements \Anax\DI\IInjectionAware
         return $this->db->fetchInto($this);
     }
 
+/**
+* Find and return all.
+*
+* @return array
+*/
+public function findMostActiveUser()
+{
+    $this->db->select('name')
+             ->from('admin group by questionid order by count(*) desc limit 2');
+
+    $this->db->execute();
+    return $this->db->fetchAll();
+}
+
     /**
    * Find and return all.
    *

@@ -80,6 +80,22 @@ class CQuestionModel implements \Anax\DI\IInjectionAware
     }
 
     /**
+    * Find and return all.
+    *
+    * @return array
+    */
+    public function findLatestQuestions()
+    {
+        $this->db->select('questionheader')
+                 ->from('question order by id desc limit 1;');
+        //var_dump($this->getSource());
+
+        $this->db->execute();
+        //$this->db->setFetchModeClass(__CLASS__);
+        return $this->db->fetchAll();
+    }
+
+    /**
    * Find and return all.
    *
    * @return array

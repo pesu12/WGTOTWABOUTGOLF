@@ -5,7 +5,6 @@
     <?php foreach ($users as $user) : ?>
       <tr>
         <?=$user->tagtext?></br>
-        <b><a href="<?= $this->url->create('me.php/question')."/id/". $user->id?> "title="Fråga" class="id"><?=$user->Question?></a></b><br/>
        </br>
       </tr>
     <?php endforeach; ?>
