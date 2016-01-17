@@ -4,7 +4,7 @@
     <?php foreach ($users as $user) : ?>
       <tr>
         <?=$user->tagtext?></br>
-        <?=$user->Question?></br>
+        <?=$user->Question?></br></br>
       </tr>
     <?php endforeach; ?>
       </table>

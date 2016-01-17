@@ -180,11 +180,7 @@ class CQuestionModel implements \Anax\DI\IInjectionAware
     {
         $this->setProperties($values);
         $values = $this->getProperties($values);
-        if (isset($values['id'])) {
-            return $this->update($values);
-        } else {
-            return $this->create($values);
-        }
+        return $this->create($values);
     }
 
     /**

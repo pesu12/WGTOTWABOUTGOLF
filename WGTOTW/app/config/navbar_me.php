@@ -19,19 +19,19 @@ return [
 
         'question'  => [
             'text'  => 'Frågor',
-            'url'   => $this->di->get('url')->create('question/list'),
+            'url'   => $this->di->get('url')->create('question'),
             'title' => 'Frågor'
         ],
 
         'tag'  => [
             'text'  => 'Taggar',
-            'url'   => $this->di->get('url')->create('tag/list'),
+            'url'   => $this->di->get('url')->create('tag'),
             'title' => 'Taggar'
         ],
 
         'users' => [
             'text'  =>'Användare',
-            'url'   => $this->di->get('url')->create('admin/list'),
+            'url'   => $this->di->get('url')->create('admin'),
             'title' => 'Användare'
          ],
 

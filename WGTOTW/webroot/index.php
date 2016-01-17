@@ -63,8 +63,20 @@ $di->set('QuestionController', function() use ($di) {
     return $controller;
 });
 
+$di->set('QuestionresponseController', function() use ($di) {
+    $controller = new \Anax\Questionresponse\QuestionresponseController();
+    $controller->setDI($di);
+    return $controller;
+});
+
 $di->set('TagController', function() use ($di) {
     $controller = new \Anax\Tag\TagController();
+    $controller->setDI($di);
+    return $controller;
+});
+
+$di->set('CommentController', function() use ($di) {
+    $controller = new \Anax\Comment\CommentController();
     $controller->setDI($di);
     return $controller;
 });
@@ -83,7 +95,7 @@ $app->router->add('', function() use ($app) {
 });
 
 
-//For the Comment page
+//For the question page
 $app->router->add('question', function() use ($app) {
 
   $app->theme->addStylesheet('css/anax-grid/style.php');
@@ -94,14 +106,25 @@ $app->router->add('question', function() use ($app) {
   ]);
 });
 
+//For the Questionresponse page
+$app->router->add('questionresponse', function() use ($app) {
+
+  $app->theme->addStylesheet('css/anax-grid/style.php');
+  $app->dispatcher->forward([
+  'controller'    => 'questionresponse',
+  'action'         => 'index',
+  'params'        => [],
+  ]);
+});
+
 //For the Comment page
-$app->router->add('comment2', function() use ($app) {
+$app->router->add('comment', function() use ($app) {
 
   $app->theme->addStylesheet('css/anax-grid/style.php');
   $app->dispatcher->forward([
   'controller'    => 'comment',
   'action'         => 'index',
-  'params'        => ['comment2'],
+  'params'        => ['comment'],
   ]);
 });
 

@@ -25,7 +25,7 @@ return [
          'region'   => 'header',
          'template' => 'me/header',
          'data'     => [
-             'siteTitle' => "<i><b> Att lära sig spela golf</b></i>",
+             'siteTitle' => "<i><b> Allt om att spela golf</b></i>",
              'siteTagline' => "",
          ],
          'sort'     => -1

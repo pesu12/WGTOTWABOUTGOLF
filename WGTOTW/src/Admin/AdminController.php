@@ -67,21 +67,13 @@ class AdminController implements \Anax\DI\IInjectionAware
      */
     public function indexAction()
     {
-        $this->di->session();
-             $form = new \Anax\HTMLForm\CFormPsWebIndex();
-             $form->setDI($this->di);
-             $form->check();
-             $this->di->theme->setTitle("Admin");
-             $this->di->views->add('default/page', [
-                 'title' => "Admin",
-                 'content' => $form->getHTML()
-             ]);
-             //To Display byline
-             $byline = $this->di->fileContent->get('byline.md');
-             $byline = $this->di->textFilter->doFilter($byline, 'shortcode, markdown');
-             $this->di->views->add('me/pagebyline', [
-               'byline' => $byline,
-             ]);
+      $all = $this->users->findAll();
+
+      $this->theme->setTitle("Visa alla användare");
+      $this->views->add('admin/list-all', [
+          'users' => $all,
+          'title' => "Visa alla användare",
+      ]);
     }
 
     /**

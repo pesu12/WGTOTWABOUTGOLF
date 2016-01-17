@@ -107,11 +107,32 @@ class CommentController implements \Anax\DI\IInjectionAware
     */
     public function addAction()
     {
-        $isPosted = $this->request->getPost('doCreate');
+      $this->di->session();
 
-        if (!$isPosted) {
-            $this->response->redirect($this->request->getPost('redirect'));
-        }
+      $content = $this->di->fileContent->get('comment.md');
+      $content = $this->di->textFilter->doFilter($content, 'shortcode, markdown');
+      $this->di->views->add('me/pagetitle', [
+          'content' => $content,
+      ]);
+
+      $comments = new \Anax\MVC\CCommentModel();
+      $comments->setDI($this->di);
+      $form = new \Anax\HTMLForm\CFormPsWebAddComment();
+      $form->setDI($this->di);
+      $form->check();
+
+      $this->di->views->add('default/page', [
+          'title' => "",
+          'content' => $form->getHTML()
+      ]);
+
+      //To Display byline
+      $byline = $this->di->fileContent->get('byline.md');
+      $byline = $this->di->textFilter->doFilter($byline, 'shortcode, markdown');
+      $this->di->views->add('me/pagebyline', [
+        'byline' => $byline,
+      ]);
+
     }
 
     /**
@@ -148,86 +169,6 @@ class CommentController implements \Anax\DI\IInjectionAware
         'byline' => $byline,
       ]);
   }
-
-    /**
-    * Save an editid comment.
-    *
-    * @param $id with comment id number.
-    *
-    * @return void
-    */
-    public function saveEditAction($id)
-    {
-      $isPosted = $this->request->getPost('doSaveEdit');
-
-      if (!$isPosted) {
-        $this->response->redirect($this->request->getPost('redirect'));
-      }
-
-      $comments = new \Anax\MVC\CCommentModel();
-      $comments->setDI($this->di);
-
-      $editedComment = [
-        'content'   => $this->request->getPost('content'),
-        'name'      => $this->request->getPost('name'),
-        'web'       => $this->request->getPost('web'),
-        'mail'      => $this->request->getPost('mail'),
-        'timestamp' => time(),
-        'key'       => $this->request->getPost('pageKey'),
-      ];
-
-      $key = $this->request->getPost('pageKey');
-
-      $comments->saveEdit($editedComment, $id,$key);
-
-      $this->response->redirect($this->request->getPost('redirect'));
-    }
-
-    /**
-    * Remove a comment.
-    *
-    * @return void
-    */
-    public function removeAction()
-    {
-      $comments = new \Anax\MVC\CCommentModel();
-      $comments->setDI($this->di);
-
-      $key = $this->request->getGet('pageKey');
-      $id = $this->request->getGet('id');
-      $comments->delete($id,$key);
-
-      if(!$comments->findAll($key)) {
-          $comments->clearDb($key);
-      }
-
-      $this->response->redirect($this->request->getGet('redirect'));
-    }
-
-
-    /**
-    * Remove all comments.
-    *
-    * @return void
-    */
-    public function removeAllAction()
-    {
-        $isPosted = $this->request->getPost('doRemoveAll');
-
-        if (!$isPosted) {
-            $this->response->redirect($this->request->getPost('redirect'));
-        }
-
-        $comments = new \Anax\MVC\CCommentModel();
-        $comments->setDI($this->di);
-
-        $key = $this->request->getPost('pageKey');
-        $comments->deleteAll($key);
-        //Needs to clear and create database so that first id is 1 again.
-        $comments->clearDb($key);
-
-        $this->response->redirect($this->request->getPost('redirect'));
-    }
 
     /**
    * setup database and add default users.

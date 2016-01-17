@@ -1,7 +1,9 @@
 <h1><?=$title?></h1>
 
+
   <table style="width:100%">
       <tr>
+        <img src=<?="http://www.gravatar.com/avatar/" . md5( strtolower( trim( $user->email ) ) ) . "?d=mm&s=80"?> alt="" /></br>
         Användarnamn: <?=$user->acronym?></br>
         Epost: <?=$user->email?></br>
         Namn: <?=$user->name?></br>

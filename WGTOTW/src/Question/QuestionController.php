@@ -46,6 +46,22 @@ class QuestionController implements \Anax\DI\IInjectionAware
     *
     * @return void
     */
+     public function IndexAction()
+     {
+         $all = $this->users->findAll();
+
+         $this->theme->setTitle("Visa alla frågor");
+         $this->views->add('question/list-all', [
+             'users' => $all,
+             'title' => "Visa alla frågor",
+         ]);
+     }
+
+    /**
+    * List all questions.
+    *
+    * @return void
+    */
      public function listAction()
      {
          $all = $this->users->findAll();

@@ -4,7 +4,7 @@ namespace Anax\HTMLForm;
  * Anax base class for wrapping sessions.
  *
  */
-class CFormPsWebAddComment extends \Anax\HTMLForm\CForm
+class CFormPsWebAddQuestionresponse extends \Anax\HTMLForm\CForm
 {
     use \Anax\DI\TInjectionaware,
         \Anax\MVC\TRedirectHelpers;
@@ -15,15 +15,15 @@ class CFormPsWebAddComment extends \Anax\HTMLForm\CForm
      public function __construct()
      {
        parent::__construct([], [
-         'commenttext' => [
+         'responsetext' => [
              'type'        => 'text',
-             'label'       => 'Kommentar:',
-             'value'       => '<Kommentar>',
+             'label'       => 'Svar:',
+             'value'       => '<Svar>',
              'required'    => true,
              'validation'  => ['not_empty'],
          ],
 
-         'Ny_Kommentar' => [
+         'Nytt_Svar' => [
              'type'      => 'submit',
                'callback'  => [$this, 'callbackSubmit'],
          ],
@@ -68,19 +68,6 @@ class CFormPsWebAddComment extends \Anax\HTMLForm\CForm
     }
 
     /**
-     * Callback for clear all comments button.
-     *
-     * @param $form.
-     */
-    public function clearallcomments($form)
-    {
-      $this->comment = new \Anax\MVC\CCommentModel();
-      $this->comment->setDI($this->di);
-      $this->comment->clearDb(1);
-      $this->redirectTo('index.php/comment');
-    }
-
-    /**
      * Callback for submit-button.
      *
      * @param $form.
@@ -98,15 +85,15 @@ class CFormPsWebAddComment extends \Anax\HTMLForm\CForm
      */
     public function callbackSuccess($form)
     {
-      $this->users = new \Anax\MVC\CCommentModel();
+      $this->users = new \Anax\MVC\CQuestionresponseModel();
       $this->users->setDI($this->di);
-      if($_POST['commenttext']=='<Kommentar>') {
+      if($_POST['responsetext']=='<Svar>') {
         $this->callbackFail($form);
       }
       else{
 
         $this->users->saveToDB([
-           'commenttext' => $_POST['commenttext'],
+           'responsetext' => $_POST['responsetext'],
        ]);
       // $this->redirectTo('index.php');
       }

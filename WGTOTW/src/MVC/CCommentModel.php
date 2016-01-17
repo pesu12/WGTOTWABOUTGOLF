@@ -20,9 +20,9 @@ class CCommentModel implements \Anax\DI\IInjectionAware
     */
     public function add($comment, $key = null)
     {
-        $comments = $this->session->get('comments', []);
+        $comments = $this->session->get('commenttext', []);
         $comments[$key][] = $comment;
-        $this->session->set('comments', $comments);
+        $this->session->set('commenttext', $comments);
     }
 
     /**
@@ -102,11 +102,7 @@ class CCommentModel implements \Anax\DI\IInjectionAware
     {
         $this->setProperties($values);
         $values = $this->getProperties($values);
-        if (isset($values['id'])) {
-            return $this->update($values);
-        } else {
-            return $this->create($values);
-        }
+        return $this->create($values);
     }
 
     /**
@@ -194,19 +190,19 @@ class CCommentModel implements \Anax\DI\IInjectionAware
      */
     public function create($values)
     {
-        $keys   = array_keys($values);
-        $values = array_values($values);
+      $keys   = array_keys($values);
+      $values = array_values($values);
 
-        $this->db->insert(
-            $this->getSource($values[6]),
-            $keys
-        );
+      $this->db->insert(
+          $this->getSource("Comment"),
+          $keys
+      );
 
-        $res = $this->db->execute($values);
+      $res = $this->db->execute($values);
 
-        $this->id = $this->db->lastInsertId();
+      $this->id = $this->db->lastInsertId();
 
-        return $res;
+      return $res;
     }
 
 
@@ -244,12 +240,7 @@ class CCommentModel implements \Anax\DI\IInjectionAware
        {
            $db='FaultyDb';
            //values->page
-           if($key==1) {
-             $db='comment';
-           }
-           else{
-             $db='comment2';
-           }
+             $db='Comment';
 
            return $db;
        }

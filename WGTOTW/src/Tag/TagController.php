@@ -42,6 +42,22 @@ class TagController implements \Anax\DI\IInjectionAware
     }
 
     /**
+    * Index for tags.
+    *
+    * @return void
+    */
+     public function IndexAction()
+     {
+         $all = $this->users->findAll();
+
+         $this->theme->setTitle("Visa alla Taggar");
+         $this->views->add('tag/list-all', [
+             'users' => $all,
+             'title' => "Visa alla taggar",
+         ]);
+     }
+
+    /**
     * List all tags.
     *
     * @return void
