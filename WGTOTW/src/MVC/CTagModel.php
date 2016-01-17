@@ -212,38 +212,22 @@ class CTagModel implements \Anax\DI\IInjectionAware
     */
    public function setup()
    {
-      $this->db->dropTableIfExists('tag')->execute();
 
-      $this->db->createTable(
-          'tag',
-          [
-              'id' => ['integer', 'primary key', 'not null', 'auto_increment'],
-              'tagtext' => ['varchar(255)', 'unique', 'not null'],
-              'created' => ['datetime'],
-              'updated' => ['datetime'],
-              'deleted' => ['datetime'],
-              'active' => ['datetime'],
-          ]
-      )->execute();
-
+    $this->filter = new \Anax\Content\CTextFilter();
 
       $this->db->insert(
               'tag',
-              ['tagtext', 'created', 'active']
+              ['tagtext']
           );
 
           $now = gmdate('Y-m-d H:i:s');
 
           $this->db->execute([
-              'Tag 1 Golf',
-              $now,
-              $now
+              $this->filter->markdown('Tag 6 Golf')
           ]);
 
           $this->db->execute([
-            'Tag 2 Golfboll',
-            $now,
-            $now
+            $this->filter->markdown('Tag 7 Golfboll')
           ]);
 
       $this->db->select()

@@ -72,7 +72,7 @@ class CQuestionModel implements \Anax\DI\IInjectionAware
     public function find($id)
     {
         $this->db->select()
-                 ->from($this->getSource())
+                 ->from('Question')
                  ->where("id = ?");
 
         $this->db->execute([$id]);

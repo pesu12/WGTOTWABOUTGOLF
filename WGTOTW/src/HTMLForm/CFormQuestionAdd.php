@@ -15,6 +15,14 @@ class CFormQuestionAdd extends \Anax\HTMLForm\CForm
      public function __construct()
      {
        parent::__construct([], [
+
+         'addquestionheader' => [
+             'type'        => 'text',
+             'label'       => 'Ny Fråga Titel:',
+             'required'    => true,
+             'validation'  => ['not_empty'],
+         ],
+
          'addquestion' => [
              'type'        => 'text',
              'label'       => 'Ny Fråga:',
@@ -71,11 +79,13 @@ class CFormQuestionAdd extends \Anax\HTMLForm\CForm
     public function callbackSuccess($form)
     {
       $this->users = new \Anax\Question\Question();
+      $this->filter = new \Anax\Content\CTextFilter();
       $this->users->setDI($this->di);
       date_default_timezone_set('Europe/Berlin');
       $now = date('Y-m-d H:i:s');
        $this->users->save([
-         'questiontext' => $_POST['addquestion'],
+         'questionheader' => $this->filter->markdown($_POST['addquestionheader']),
+         'questiontext' => $this->filter->markdown($_POST['addquestion']),
        ]);
       /*
       $this->users = new \Anax\Admin\Admin();

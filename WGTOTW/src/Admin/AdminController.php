@@ -71,7 +71,7 @@ class AdminController implements \Anax\DI\IInjectionAware
       $all = $this->users->findAllquestions();
 
       $this->theme->setTitle("Visa alla användare");
-      $this->views->add('admin/list_question_responses', [
+      $this->views->add('admin/list_all_with_response_links', [
           'users' => $all,
           'title' => "Visa alla användare",
       ]);
@@ -124,6 +124,26 @@ class AdminController implements \Anax\DI\IInjectionAware
 
        $this->theme->setTitle("Användare");
        $this->views->add('admin/view', [
+         'id' => $id,
+         'user' => $user,
+         'title' => "Användare",
+       ]);
+    }
+
+    /**
+     * List user with id.
+     *
+     * @param int $id of user to display
+     *
+     * @return void
+     */
+    public function idlinkAction($id = null)
+    {
+       $this->users = new \Anax\Admin\Admin();
+       $this->users->setDI($this->di);
+       $user = $this->users->findquestions($id);
+       $this->theme->setTitle("Användare");
+       $this->views->add('admin/questionsforuser', [
          'id' => $id,
          'user' => $user,
          'title' => "Användare",

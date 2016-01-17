@@ -80,6 +80,21 @@ class CAdminModel implements \Anax\DI\IInjectionAware
     }
 
     /**
+   * Find and return specific.
+   *
+   * @return this
+   */
+    public function findquestions($id)
+    {
+        $this->db->select()
+                 ->from('VDisplayQuestionForAdmin')
+                 ->where("id = ?");
+
+        $this->db->execute([$id]);
+        return $this->db->fetchInto($this);
+    }
+
+    /**
    * Find and return all.
    *
    * @return array
@@ -87,7 +102,7 @@ class CAdminModel implements \Anax\DI\IInjectionAware
     public function findAll()
     {
         $this->db->select()
-                 ->from($this->getSource());
+                 ->from('Admin');
 
         $this->db->execute();
         return $this->db->fetchAll();
@@ -157,7 +172,7 @@ class CAdminModel implements \Anax\DI\IInjectionAware
     public function query($columns = '*')
     {
       $this->db->select($columns)
-               ->from($this->getSource());
+               ->from('Admin');
 
       return $this;
     }

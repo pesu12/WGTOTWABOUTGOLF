@@ -5,7 +5,7 @@
       <tr>
         Acronym: <?=$user->acronym?></br>
         Email: <?=$user->email?></br>
-        Name: <?=$user->name?></br></br>
+        Namn: <?=$user->name?></br></br>
       </tr>
     <?php endforeach; ?>
       </table>

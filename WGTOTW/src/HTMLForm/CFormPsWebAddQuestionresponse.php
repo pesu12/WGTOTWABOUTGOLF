@@ -86,6 +86,7 @@ class CFormPsWebAddQuestionresponse extends \Anax\HTMLForm\CForm
     public function callbackSuccess($form)
     {
       $this->users = new \Anax\MVC\CQuestionresponseModel();
+      $this->filter = new \Anax\Content\CTextFilter();
       $this->users->setDI($this->di);
       if($_POST['responsetext']=='<Svar>') {
         $this->callbackFail($form);
@@ -93,7 +94,8 @@ class CFormPsWebAddQuestionresponse extends \Anax\HTMLForm\CForm
       else{
 
         $this->users->saveToDB([
-           'responsetext' => $_POST['responsetext'],
+
+           'responsetext' => $this->filter->markdown($_POST['responsetext']),
        ]);
       // $this->redirectTo('index.php');
       }

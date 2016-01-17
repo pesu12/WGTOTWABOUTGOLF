@@ -99,6 +99,7 @@ class CFormPsWebAddComment extends \Anax\HTMLForm\CForm
     public function callbackSuccess($form)
     {
       $this->users = new \Anax\MVC\CCommentModel();
+      $this->filter = new \Anax\Content\CTextFilter();
       $this->users->setDI($this->di);
       if($_POST['commenttext']=='<Kommentar>') {
         $this->callbackFail($form);
@@ -106,7 +107,7 @@ class CFormPsWebAddComment extends \Anax\HTMLForm\CForm
       else{
 
         $this->users->saveToDB([
-           'commenttext' => $_POST['commenttext'],
+           'commenttext' => $this->filter->markdown($_POST['commenttext']),
        ]);
       // $this->redirectTo('index.php');
       }

@@ -65,7 +65,6 @@ class TagController implements \Anax\DI\IInjectionAware
      public function listAction()
      {
          $all = $this->users->findAll();
-
          $this->theme->setTitle("Visa alla Taggar");
          $this->views->add('tag/list-all', [
              'users' => $all,
