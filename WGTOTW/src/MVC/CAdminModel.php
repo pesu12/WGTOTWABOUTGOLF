@@ -94,6 +94,20 @@ class CAdminModel implements \Anax\DI\IInjectionAware
     }
 
     /**
+   * Find and return all.
+   *
+   * @return array
+   */
+    public function findAllquestions()
+    {
+        $this->db->select()
+                 ->from('VDisplayQuestionForAdmin');
+
+        $this->db->execute();
+        return $this->db->fetchAll();
+    }
+
+    /**
      * Execute the query built.
      *
      * @param string $query custom query.

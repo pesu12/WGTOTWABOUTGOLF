@@ -67,10 +67,11 @@ class AdminController implements \Anax\DI\IInjectionAware
      */
     public function indexAction()
     {
-      $all = $this->users->findAll();
+
+      $all = $this->users->findAllquestions();
 
       $this->theme->setTitle("Visa alla användare");
-      $this->views->add('admin/list-all', [
+      $this->views->add('admin/list_question_responses', [
           'users' => $all,
           'title' => "Visa alla användare",
       ]);

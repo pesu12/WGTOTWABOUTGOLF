@@ -128,6 +128,17 @@ $app->router->add('comment', function() use ($app) {
   ]);
 });
 
+//For the tag page
+$app->router->add('tag', function() use ($app) {
+
+  $app->theme->addStylesheet('css/anax-grid/style.php');
+  $app->dispatcher->forward([
+  'controller'    => 'tag',
+  'action'         => 'index',
+  'params'        => [],
+  ]);
+});
+
 //For the admin login register page
 $app->router->add('admin', function() use ($app) {
 
