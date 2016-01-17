@@ -86,9 +86,8 @@ class CAdminModel implements \Anax\DI\IInjectionAware
    */
     public function findquestions($id)
     {
-        $this->db->select()
-                 ->from('VDisplayQuestionForAdmin')
-                 ->where("id = ?");
+        $this->db->select('Admin.name,Admin.email,Question.questionheader as Question,Response.responsetext as Response')
+                 ->from('Question,Response,Admin where Admin.id='.$id);
 
         $this->db->execute([$id]);
         return $this->db->fetchInto($this);

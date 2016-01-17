@@ -5,7 +5,8 @@
       <tr>
         <img src=<?="http://www.gravatar.com/avatar/" . md5( strtolower( trim( $user->email ) ) ) . "?d=mm&s=80"?> alt="" /></br>
         Namn: <?=$user->name?></br></br>
-        Fråga: <?=$user->Question?></br></br>
+        Fråga: <?=$user->questionheader?></br></br>
+        Svar: <?=$user->Response?></br></br>        
       </tr>
     <?php endforeach; ?>
       </table>

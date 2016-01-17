@@ -99,8 +99,7 @@ class CFormAdminAddUser extends \Anax\HTMLForm\CForm
          'acronym' => $_POST['addacronym'],
          'email' => $_POST['addemail'],
          'name' => $_POST['addname'],
-        // 'password' => password_hash($_POST['addacronym'], PASSWORD_DEFAULT),
-        'password' => $_POST['addpassword'],
+         'password' => $_POST['addpassword'],
          'created' => $now,
          'active' => $now,
        ]);

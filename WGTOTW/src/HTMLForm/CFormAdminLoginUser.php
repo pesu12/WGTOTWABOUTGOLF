@@ -82,7 +82,7 @@ class CFormAdminLoginUser extends \Anax\HTMLForm\CForm
       $this->users->setDI($this->di);
       $all = $this->users->findAll();
       foreach ($all as $user) :
-        if($user->email==$_POST['addemail']) {
+        if(($user->email==$_POST['addemail'])&&($user->password==$_POST['addpassword'])) {
             $this->redirectTo('index.php/admin/id/'.$user->id);
         }
       endforeach;

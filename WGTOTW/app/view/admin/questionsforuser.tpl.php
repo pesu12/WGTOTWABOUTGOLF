@@ -5,6 +5,7 @@ Namn: <?=$user->name?></br></br>
   <table style="width:100%">
       <tr>
         Fråga: <?=$user->Question?></br>
+        Svar: <?=$user->Response?></br></br>    
       </tr>
   </table>
   </br>
